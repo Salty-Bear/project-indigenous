@@ -1,38 +1,162 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.body{
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #eeeeee;
+  overflow-x: hidden;
+  overflow-y: hidden;
 }
 
-.App-link {
-  color: #61dafb;
+body{
+  overflow-x: hidden;
+  overflow-y: hidden;
 }
 
-@keyframes App-logo-spin {
-  from {
+.square{
+  
+  position: relative;
+  top: -10vh;
+  width: 55vh;
+  height: 55vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.square span{
+  position: absolute;
+  inset: 0;
+  border: 2px solid #000000;
+  opacity: 0.5;
+}
+
+
+.square span:nth-child(1){
+  border-radius: 46% 54% 61% 39% / 40% 40% 60% 60%;
+  animation: animateSquare1 6s linear infinite;
+}
+
+.square span:nth-child(2){
+  border-radius: 68% 32% 61% 39% / 49% 52% 48% 51%;
+  animation: animateSquare1 4s linear infinite;
+}
+
+.square span:nth-child(3){
+  border-radius: 56% 44% 36% 64% / 51% 68% 32% 49%;
+  animation: animateSquare2 3s linear infinite;
+}
+
+
+@keyframes animateSquare1{
+  0%{
     transform: rotate(0deg);
   }
-  to {
+  100%{
     transform: rotate(360deg);
   }
+}
+
+
+@keyframes animateSquare2{
+  0%{
+    transform: rotate(360deg);
+  }
+  100%{
+    transform: rotate(0deg);
+  }
+}
+
+.bottom{
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  padding: 1%;
+  background:#66a3ff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 0px;
+}
+
+.bottom .wave{
+  border-radius: 0px;
+  position: absolute;
+  top: -100px;
+  left: 0;
+  width: 100%;
+  height: 25vh;
+  background-image: url("../public/assets/wave.png");
+  background-size: 1000px 100px;
+}
+
+.bottom .wave#wave1{
+  z-index: 10;
+  opacity: 1;
+  bottom: 0;
+  animation: animate 4s linear infinite;
+
+}
+
+
+.bottom .wave#wave2{
+  z-index: 9;
+  opacity: 0.5;
+  bottom: 10px;
+  animation: animate2 4s linear infinite;
+
+}
+
+
+.bottom .wave#wave3{
+  z-index: 8;
+  opacity: 0.2;
+  bottom: 15px;
+  animation: animate 3s linear infinite;
+}
+
+.bottom .wave#wave4{
+  z-index: 7;
+  opacity: 0.7;
+  bottom: 20px;
+  animation: animate2 3s linear infinite;
+}
+
+@keyframes animate{
+  0%{
+    background-position-x: 1000px;
+  }
+  100%{
+    background-position-x: 0px;
+  }
+}
+
+@keyframes animate2{
+  0%{
+    background-position-x: 0px;
+  }
+  100%{
+    background-position-x: 1000px;
+  }
+}
+
+
+.modeswitch{
+  position: absolute;
+  right:1.5%;
+  top: 1%;
+  z-index: 10;
+}
+
+.content{
+  position: absolute;
+  top: 20vh;
+}
+
+.sidebar{
+  position: absolute;
+  top: 10%;
+}
+.bar{
+  background-color: transparent;
 }
