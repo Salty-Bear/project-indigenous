@@ -168,3 +168,15 @@ body{
   font-family: Caveat;
   padding-top: 4vh;
 }
+
+.splashbk{
+  position: absolute;
+  background-image: url('../public/assets/ship.png');
+  width: 70vh;
+  height: 90vh;
+  background-repeat: no-repeat;
+  background-size:cover;
+  right: 1vh;
+  top: 20vh;
+  text-align: center;
+}

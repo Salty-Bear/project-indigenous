@@ -64,7 +64,7 @@ const AppBar = styled(MuiAppBar, {
 function makeButton(data) {
   return (
       <ListItem key={data.id} disablePadding>
-      <ListItemButton>
+      <ListItemButton >
         <ListItemIcon>
           <TipsAndUpdatesIcon /> 
         </ListItemIcon>
@@ -191,6 +191,16 @@ const MaterialUISwitch = styled(Switch)(({ theme }) => ({
 function Darkmodetoggle(){
   return <a href='/' className='modeswitch'>{<MaterialUISwitch sx={{ m: 1 }} defaultChecked />}</a> 
 }
+//--------------------------Splash-----------------------
+
+function Splash(){
+  return(
+    <div className='splashbk'>
+      <p>ok</p>
+    </div>
+  );
+}
+
 
 //---------------------------------------APP--------------------------------------------------
 
@@ -262,7 +272,7 @@ useEffect(function(){
         <p className="Greetings">Bonjour!</p>
       </div>
 
-
+      <Splash />
 
       
     </div>
