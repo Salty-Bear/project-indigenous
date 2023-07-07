@@ -236,14 +236,13 @@
 
 
   function App() {
-  const [darkMode,setDarkMode] =useState(false);
 
+  const [darkMode,setDarkMode] =useState(false);
   const darkTheme = createTheme({
       palette: {
         mode: darkMode ? 'dark' : 'light'
       },
     });
-
   const [title,settitles] = useState([]);
   const [ship,setship] = useState(false);
   const [load,loader] = useState(true);
@@ -258,18 +257,18 @@
   },[]);
 
     return (
-      load ? <div class="center"> loading... </div> :
+      load ? <div class="center"> loading </div> :
       <div style={{backgroundColor: darkMode ? "#000000":"#eeeeee"}} className="body">
         <ThemeProvider theme={darkTheme}>
         <p checked={darkMode} onChange={() => setDarkMode(!darkMode)} className='modeswitch'>{<MaterialUISwitch sx={{ m: 1 }} defaultChecked />}</p> 
         <CssBaseline />
-
+  
         <div className="square">
           <span style={{borderColor: darkMode ? "#eeeeee":"#000000"}} ></span>
           <span style={{borderColor: darkMode ? "#eeeeee":"#000000"}}></span>
           <span style={{borderColor: darkMode ? "#eeeeee":"#000000"}}></span>
         </div>
-
+        
         <div className="sidebar">
           <PersistentDrawerLeft title={title} setChosenData={setChosenData} setship={setship} />
         </div>
@@ -296,7 +295,6 @@
         </p>
 
       </ThemeProvider>
-
       </div>
     );
   }
