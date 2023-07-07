@@ -18,15 +18,21 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
+import ListItemText from '@mui/material/ListItemText';  
 import TipsAndUpdatesIcon from '@mui/icons-material/TipsAndUpdates';
+import { useEffect,useState } from 'react';
+import axios from 'axios';
 
+
+
+
+
+
+
+
+//------------------------Sidebar----------------------------------------------------------
 
 const drawerWidth = 240;
-
-
 
 const DrawerHeader = styled('div')(({ theme }) => ({
   display: 'flex',
@@ -55,7 +61,21 @@ const AppBar = styled(MuiAppBar, {
 }));
 
 
-function PersistentDrawerLeft() {
+function makeButton(data) {
+  return (
+      <ListItem key={data.id} disablePadding>
+      <ListItemButton>
+        <ListItemIcon>
+          <TipsAndUpdatesIcon /> 
+        </ListItemIcon>
+        <ListItemText primary={data.title} />
+      </ListItemButton>
+    </ListItem>
+  );
+}
+
+
+function PersistentDrawerLeft({title}) {
   const theme = useTheme();
   const [open, setOpen] = React.useState(true);
 
@@ -107,16 +127,7 @@ function PersistentDrawerLeft() {
         </DrawerHeader>
         <Divider />
         <List>
-          {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-            <ListItem key={text} disablePadding>
-              <ListItemButton>
-                <ListItemIcon>
-                   <TipsAndUpdatesIcon /> 
-                </ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItemButton>
-            </ListItem>
-          ))}
+          {title.map(makeButton,this)}
         </List>
         <Divider />
       </Drawer>
@@ -124,6 +135,8 @@ function PersistentDrawerLeft() {
   );
   }
 
+
+//----------------------------- Dark Mode Toggle Switch----------------------------------------------
 
 const MaterialUISwitch = styled(Switch)(({ theme }) => ({
   width: 62,
@@ -179,26 +192,50 @@ function Darkmodetoggle(){
   return <a href='/' className='modeswitch'>{<MaterialUISwitch sx={{ m: 1 }} defaultChecked />}</a> 
 }
 
-
+//---------------------------------------APP--------------------------------------------------
 
 
 function App() {
+
+
+
+
+const [title,settitles] = useState([]);
+const [load,loader] = useState(true);
+
+useEffect(function(){
+
+  axios.get('https://api.gyanibooks.com/library/get_dummy_notes/').then((res) =>{
+    settitles(res.data);
+    loader(false);
+  })
+},[]);
+
+
+
+
+
+
+
+
+
   return (
     
+    load ? <div> loading </div> :
+
     <div className="body">
-      <Darkmodetoggle />
+      <Darkmodetoggle /> 
       <div className="square">
         <span></span>
         <span></span>
         <span></span>
       </div>
+      <p></p>
 
       <div className="sidebar">
-        <PersistentDrawerLeft />
+        <PersistentDrawerLeft title={title} />
       </div>
-      
-      
-
+      <p>{console.log(title)}</p>
       <div className="bottom">
         <div className="waves">
           <div className="wave" id="wave1"></div>
@@ -209,7 +246,7 @@ function App() {
       </div>
 
 
-      <Paper className='content' sx={{
+      {/* <Paper className='content' sx={{
         width:300,
         height:300,
         borderRadius:50,
@@ -219,7 +256,11 @@ function App() {
         <Box p={1}>
           <Typography variant="h5"></Typography>
         </Box>
-      </Paper>
+      </Paper> */}
+
+      <div className="content">
+        <p className="Greetings">Bonjour!</p>
+      </div>
 
 
 
