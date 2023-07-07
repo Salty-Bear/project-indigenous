@@ -27,8 +27,8 @@
   import CardActions from '@mui/material/CardActions';
   import CardContent from '@mui/material/CardContent';
   import Button from '@mui/material/Button';
-
-
+  import { ThemeProvider, createTheme } from '@mui/material/styles';
+  import CancelTwoToneIcon from '@mui/icons-material/CancelTwoTone';
 
 
 
@@ -66,30 +66,13 @@
   }));
 
 
-  // function makeButton({data,chosenData}) {
 
-
-
-  //   return (
-  //       <ListItem key={data.id} disablePadding>
-  //       <ListItemButton onClick={() => chosen(data)} >
-  //         <ListItemIcon>
-  //           <TipsAndUpdatesIcon /> 
-  //         </ListItemIcon>
-  //         <ListItemText primary={data.title} />
-  //       </ListItemButton>
-  //     </ListItem>
-  //   );
-  // }
-
-
-  function PersistentDrawerLeft({title,setChosenData}) {
-
+  function PersistentDrawerLeft({title,setChosenData,setship}) {
     const chosen = (data) =>{
       setChosenData(data)
+      setship(true)
+      
     }
-
-
     const makeButton = (data) =>{
       return(
         <ListItem key={data.id} disablePadding>
@@ -103,10 +86,8 @@
       )
     }
 
-
     const theme = useTheme();
     const [open, setOpen] = React.useState(true);
-
     const handleDrawerOpen = () => {
       setOpen(true);
     };
@@ -217,25 +198,13 @@
 
 
 
-  function Darkmodetoggle(){
-    return <a href='/' className='modeswitch'>{<MaterialUISwitch sx={{ m: 1 }} defaultChecked />}</a> 
-  }
-  //--------------------------Splash-----------------------
-
-  // function Splash(){
-  //   return(
-  //     <div data-aos="fade-left" data-aos-duration="2000" className='splashbk'>
-  //       <BasicCard />
-  //     </div>
-  //   );
-  // }
-
   //-----------------------------------card------------------------------------
 
 
   function BasicCard({ chosenData }) {
-    var id=1; 
-    console.log(chosenData)
+
+
+
     return (
       <div data-aos="fade-left" data-aos-duration="2000" className='splashbk'>
         <Card sx={{ minWidth: 300,width:300, height:200,position:'absolute',right:30,top:-70 }}>
@@ -250,7 +219,7 @@
               {chosenData.category}
             </Typography>
             <Typography variant="body2">
-              notes
+              Title
               <br />
               {'"a benevolent smile"'}
             </Typography>
@@ -267,11 +236,16 @@
 
 
   function App() {
+  const [darkMode,setDarkMode] =useState(false);
 
-
-
+  const darkTheme = createTheme({
+      palette: {
+        mode: darkMode ? 'dark' : 'light'
+      },
+    });
 
   const [title,settitles] = useState([]);
+  const [ship,setship] = useState(false);
   const [load,loader] = useState(true);
   const [chosenData, setChosenData] = useState([]);
 
@@ -283,30 +257,23 @@
     })
   },[]);
 
-
-
-
-
-
-
-
-
     return (
-      
-      load ? <div> loading </div> :
+      load ? <div class="center"> loading... </div> :
+      <div style={{backgroundColor: darkMode ? "#000000":"#eeeeee"}} className="body">
+        <ThemeProvider theme={darkTheme}>
+        <p checked={darkMode} onChange={() => setDarkMode(!darkMode)} className='modeswitch'>{<MaterialUISwitch sx={{ m: 1 }} defaultChecked />}</p> 
+        <CssBaseline />
 
-      <div className="body">
-        <Darkmodetoggle /> 
         <div className="square">
-          <span></span>
-          <span></span>
-          <span></span>
+          <span style={{borderColor: darkMode ? "#eeeeee":"#000000"}} ></span>
+          <span style={{borderColor: darkMode ? "#eeeeee":"#000000"}}></span>
+          <span style={{borderColor: darkMode ? "#eeeeee":"#000000"}}></span>
         </div>
-        <p></p>
 
         <div className="sidebar">
-          <PersistentDrawerLeft title={title} setChosenData={setChosenData} />
+          <PersistentDrawerLeft title={title} setChosenData={setChosenData} setship={setship} />
         </div>
+
         <div className="bottom">
           <div className="waves">
             <div className="wave" id="wave1"></div>
@@ -316,16 +283,20 @@
           </div>
         </div>
 
-
-
-
         <div data-aos="zoom-out-up" data-aos-duration="1000" className="content">
-          <p className="Greetings">Bonjour!</p>
+          <p style={{color: darkMode ? "#eeeeee":"#000000"}} className="Greetings">Bonjour!</p>
         </div>
 
-        <BasicCard  chosenData={chosenData}/>
+        {ship ? <BasicCard  chosenData={chosenData}/>:undefined}
 
-        
+        <p className="closebtn">
+          <IconButton onClick={() => setship(false)}>
+            <CancelTwoToneIcon />
+          </IconButton>
+        </p>
+
+      </ThemeProvider>
+
       </div>
     );
   }

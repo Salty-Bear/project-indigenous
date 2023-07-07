@@ -180,3 +180,20 @@ body{
   top: 20vh;
   text-align: center;
 }
+
+
+.closebtn{
+  z-index: 20;
+  position: absolute;
+  bottom: 1%;
+  right: 3%;
+
+}
+
+.center{
+  position: fixed;
+  top: 45%;
+  left: 45%;
+  font-size: 5vh;
+  font-weight: 300;
+}
