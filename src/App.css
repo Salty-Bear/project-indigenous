@@ -204,9 +204,7 @@ body{
   font-size: 5vh;
   font-weight: 300;
 }
-
 @media only screen and (max-width: 600px) {
-  @media only screen and (max-width: 600px) {
 
     .splashbk{
       width: 60vh;
@@ -220,4 +218,3 @@ body{
       top: 50%;
     }
   }
-}
