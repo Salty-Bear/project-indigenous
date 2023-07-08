@@ -24,13 +24,9 @@
   import Aos from 'aos'
   import 'aos/dist/aos.css'
   import Card from '@mui/material/Card';
-  import CardActions from '@mui/material/CardActions';
   import CardContent from '@mui/material/CardContent';
-  import Button from '@mui/material/Button';
   import { ThemeProvider, createTheme } from '@mui/material/styles';
   import CancelTwoToneIcon from '@mui/icons-material/CancelTwoTone';
-
-
 
 
 
@@ -65,13 +61,10 @@
     }),
   }));
 
-
-
   function PersistentDrawerLeft({title,setChosenData,setship}) {
     const chosen = (data) =>{
       setChosenData(data)
       setship(true)
-      
     }
     const makeButton = (data) =>{
       return(
@@ -91,7 +84,6 @@
     const handleDrawerOpen = () => {
       setOpen(true);
     };
-
     const handleDrawerClose = () => {
       setOpen(false);
     };
@@ -108,7 +100,7 @@
               edge="start"
               sx={{ mr: 2, ...(open && { display: 'none' }) }}
             >
-              <MenuIcon sx={{color:"black"}} />
+              <MenuIcon sx={{color:"black", backgroundColor:"grey"}} />
             </IconButton>
 
           </Toolbar>
@@ -195,19 +187,42 @@
     },
   }));
 
-
-
-
   //-----------------------------------card------------------------------------
 
-
   function BasicCard({ chosenData }) {
+    var ex;
+  try{
+    const object=JSON.parse(chosenData.notes)
+    const extractTextFromObject=(obj)=> {
+      let text = '';  
+    
+      if (obj.content) {
+        obj.content.forEach((item) => {
+          if (item.type === 'paragraph') {
+            if (item.content && item.content.length > 0) {
+              item.content.forEach((subItem) => {
+                if (subItem.type === 'text') {
+                  text += subItem.text;
+                }
+              });
+            }
+          } else if (item.content) {
+            text += extractTextFromObject(item);
+          }
+        });
+      }
+      return text
+    }
 
-
+    ex=extractTextFromObject(object);
+  }
+  catch(error){
+    ex="No Notes Found"
+  }
 
     return (
       <div data-aos="fade-left" data-aos-duration="2000" className='splashbk'>
-        <Card sx={{ minWidth: 300,width:300, height:200,position:'absolute',right:30,top:-70 }}>
+        <Card sx={{ minWidth: 300,width:300, height:200,position:'absolute',right:30,top:-70,overflow:"auto" }}>
           <CardContent>
             <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
               id : {chosenData.id} | user : {chosenData.user}
@@ -219,14 +234,9 @@
               {chosenData.category}
             </Typography>
             <Typography variant="body2">
-              Title
-              <br />
-              {'"a benevolent smile"'}
+              {ex}
             </Typography>
           </CardContent>
-          <CardActions>
-            <Button size="small">Learn More</Button>
-          </CardActions>
         </Card>
       </div>
     );
@@ -234,8 +244,9 @@
 
   //---------------------------------------APP--------------------------------------------------
 
-
   function App() {
+
+    
 
   const [darkMode,setDarkMode] =useState(false);
   const darkTheme = createTheme({
@@ -257,7 +268,7 @@
   },[]);
 
     return (
-      load ? <div class="center"> loading </div> :
+      load ? <div className="center"> loading </div> :
       <div style={{backgroundColor: darkMode ? "#000000":"#eeeeee"}} className="body">
         <ThemeProvider theme={darkTheme}>
         <p checked={darkMode} onChange={() => setDarkMode(!darkMode)} className='modeswitch'>{<MaterialUISwitch sx={{ m: 1 }} defaultChecked />}</p> 

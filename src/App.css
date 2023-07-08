@@ -33,6 +33,7 @@ body{
 
 
 .square span:nth-child(1){
+  
   border-radius: 46% 54% 61% 39% / 40% 40% 60% 60%;
   animation: animateSquare1 6s linear infinite;
 }
@@ -40,6 +41,7 @@ body{
 .square span:nth-child(2){
   border-radius: 68% 32% 61% 39% / 49% 52% 48% 51%;
   animation: animateSquare1 4s linear infinite;
+
 }
 
 .square span:nth-child(3){
@@ -187,8 +189,13 @@ body{
   position: absolute;
   bottom: 1%;
   right: 3%;
-
 }
+
+.splashbk::-webkit-scrollbar {
+  width: 0.5em;
+}
+ 
+
 
 .center{
   position: fixed;
@@ -196,4 +203,21 @@ body{
   left: 45%;
   font-size: 5vh;
   font-weight: 300;
+}
+
+@media only screen and (max-width: 600px) {
+  @media only screen and (max-width: 600px) {
+
+    .splashbk{
+      width: 60vh;
+      height: 60vh;
+      position: absolute;
+      margin-top: 50%;
+    }
+
+    .center{
+      left: 35%;
+      top: 50%;
+    }
+  }
 }
